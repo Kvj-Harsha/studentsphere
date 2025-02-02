@@ -79,9 +79,9 @@ export default function TimetableAdmin() {
   };
 
   return (
-    <div className="min-h-screen p-6 bg-gray-100">
-      <h2 className="text-2xl font-bold mb-4">Admin Timetable</h2>
-      <div className="flex flex-col md:flex-row gap-4 mb-4">
+    <div className="min-h-screen p-6 bg-black">
+      <h2 className="text-2xl text-white font-bold mb-4">Admin Timetable</h2>
+      <div className="flex flex-col bg-black md:flex-row gap-4 mb-4">
         <select value={batch} onChange={(e) => setBatch(e.target.value)} className="p-2 border rounded">
           {["20", "21", "22", "23", "24"].map((b) => (
             <option key={b} value={b}>
@@ -106,7 +106,7 @@ export default function TimetableAdmin() {
       ) : (
         <div className="bg-white p-4 shadow-md rounded-lg overflow-x-auto">
           {/* Timetable Table */}
-          <table className="w-full border-collapse border border-gray-300 mb-6">
+          <table className="w-full border-collapse g border border-gray-300 mb-6">
             <thead>
               <tr className="bg-gray-200">
                 <th className="border p-2">Day</th>
