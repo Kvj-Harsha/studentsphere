@@ -1,11 +1,13 @@
 import React from 'react'
 
-const page = () => {
+
+const Navbar = () => {
   return (
     <div>
+      {/* <Navbar/> */}
       Home! lets go!
     </div>
   )
 }
 
-export default page
+export default Navbar
