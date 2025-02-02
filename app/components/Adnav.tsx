@@ -19,6 +19,7 @@ const Navbar: React.FC = () => {
     { name: 'Announcement', path: '/admin/notifications' },
     { name: 'Materials', path: '/admin/materials' },
     { name: 'Time Table', path: '/admin/timetable' },
+    { name: 'Events', path: '/admin/events'},
     { name: 'Profile', path: '/admin/profile' },
   ];
 
