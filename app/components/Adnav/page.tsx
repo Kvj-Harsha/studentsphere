@@ -1,6 +1,6 @@
 import React from 'react'
 
-const page = () => {
+const Adnav = () => {
   return (
     <div>
       this is admin nav
@@ -8,4 +8,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Adnav

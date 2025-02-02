@@ -1,6 +1,6 @@
 import React from 'react'
 
-const page = () => {
+const Stnav = () => {
   return (
     <div>
       this is student navabar
@@ -8,4 +8,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Stnav
