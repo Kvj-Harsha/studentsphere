@@ -171,7 +171,7 @@ const AdminPage: React.FC = () => {
                     </div>
                   </div>
                   
-                  <a href={resource.sourceLink} target="_blank" className="text-blue-400 underline">View</a>
+                  
                 </div>
               ))
             )}
