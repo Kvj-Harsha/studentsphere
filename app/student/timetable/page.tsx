@@ -34,8 +34,8 @@ export default function TimetableStudent() {
   }, [batch, branch]);
 
   return (
-    <div className="min-h-screen p-6 bg-gray-100">
-      <h2 className="text-2xl font-bold mb-4">Student Timetable</h2>
+    <div className="min-h-screen p-6 bg-black">
+      <h2 className="text-2xl font-bold text-white mb-4">Student Timetable</h2>
       <div className="flex flex-col md:flex-row gap-4 mb-4">
         <select value={batch} onChange={(e) => setBatch(e.target.value)} className="p-2 border rounded">
           {["20", "21", "22", "23", "24"].map((b) => (
