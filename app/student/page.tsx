@@ -1,27 +1,49 @@
-"use client"
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import { getAuth, signOut } from 'firebase/auth';
+"use client";
 
-const Page = () => {
-  const router = useRouter();
-  const auth = getAuth();
+import React, { useEffect, useState } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { app } from '@/lib/firebase';
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      router.push('/sign-in');
-    } catch (error) {
-      console.error('Error logging out:', error);
-    }
-  };
+const Page: React.FC = () => {
+  const [user, setUser] = useState<any>(null);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  useEffect(() => {
+    const fetchUserData = async (uid: string) => {
+      const userDoc = await getDoc(doc(db, "users", uid));
+      if (userDoc.exists()) {
+        setUser(userDoc.data());
+      }
+    };
+
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        fetchUserData(currentUser.uid);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   return (
-    <div>
-      <h1>Welcome Student!</h1>
-      <button onClick={handleLogout} className="px-4 py-2 bg-red-500 text-white rounded">
-        Logout
-      </button>
+    <div className="min-h-screen flex items-center justify-center bg-[#111184] text-white">
+      <div className="w-full max-w-md p-6 bg-[#7373ff] rounded-2xl shadow-lg text-center">
+        <h1 className="text-2xl font-bold mb-4">User Details</h1>
+        {user ? (
+          <div className="space-y-3">
+            <p><span className="font-semibold">Name:</span> {user.username}</p>
+            <p><span className="font-semibold">Email:</span> {user.email}</p>
+            <p><span className="font-semibold">Role:</span> {user.role}</p>
+            <p><span className="font-semibold">Roll No:</span> {user.rollNo}</p>
+            <p><span className="font-semibold">Batch:</span> {user.batch}</p>
+            <p><span className="font-semibold">Branch:</span> {user.branch}</p>
+          </div>
+        ) : (
+          <p>Loading user data...</p>
+        )}
+      </div>
     </div>
   );
 };
