@@ -12,7 +12,7 @@ interface CourseDetail {
 export default function TimetableAdmin() {
   const [timetable, setTimetable] = useState<Record<string, string[]>>({});
   const [courseDetails, setCourseDetails] = useState<CourseDetail[]>([]);
-  const [batch, setBatch] = useState("20");
+  const [batch, setBatch] = useState("21");
   const [branch, setBranch] = useState("Computer Science");
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
@@ -83,7 +83,7 @@ export default function TimetableAdmin() {
       <h2 className="text-2xl text-white font-bold mb-4">Admin Timetable</h2>
       <div className="flex flex-col bg-black md:flex-row gap-4 mb-4">
         <select value={batch} onChange={(e) => setBatch(e.target.value)} className="p-2 border rounded">
-          {["20", "21", "22", "23", "24"].map((b) => (
+          {["21", "22", "23", "24"].map((b) => (
             <option key={b} value={b}>
               {b}
             </option>
