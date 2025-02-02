@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import PrivateRoute from '../components/PrivateRoute/page';
+import PrivateRoute from '../components/PrivateRoute/PrivateRoute';
 
 interface LayoutProps {
   children: ReactNode;
