@@ -43,7 +43,7 @@ StudentSphere is a student portal designed to streamline academic, extracurricul
 ![Events Page](./public/screenshots/3.png)
 ![Timetable Page](./public/screenshots/4.png)
 ![Profile Page](./public/screenshots/5.png)
-![Dark Mode](./public/screenshots/6.png)
+![Admin](./public/screenshots/6.png)
 
 ## Contribution
 1. Fork the repository and create a feature branch.
