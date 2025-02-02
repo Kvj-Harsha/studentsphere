@@ -15,42 +15,65 @@ export default function NotificationReceiver() {
 
   useEffect(() => {
     const user = auth.currentUser;
-    if (!user) return;
+    if (!user) {
+      console.error("No authenticated user found.");
+      return;
+    }
 
+    console.log("Fetching user data for:", user.email);
     const userRef = collection(db, "users");
+
     const unsubscribeUser = onSnapshot(
       query(userRef, where("email", "==", user.email)),
       (snapshot) => {
         if (!snapshot.empty) {
           const userData = snapshot.docs[0].data();
-          setUserBatch(userData.batch);
-          setUserBranch(userData.branch);
+          console.log("User data:", userData);
+          setUserBatch(userData.batch || "Unknown");
+          setUserBranch(userData.branch || "Unknown");
+        } else {
+          console.warn("No user data found for email:", user.email);
         }
-      }
+      },
+      (error) => console.error("Error fetching user data:", error)
     );
 
     return () => unsubscribeUser();
   }, []);
 
   useEffect(() => {
-    if (!userBatch || !userBranch) return;
+    if (!userBatch || !userBranch) {
+      console.warn("User batch or branch not set yet.");
+      return;
+    }
 
+    console.log("Fetching notifications for Batch:", userBatch, "Branch:", userBranch);
     setLoading(true);
+
     const notificationsRef = collection(db, "notifications");
     const q = query(notificationsRef, orderBy("timestamp", "desc"));
 
-    const unsubscribeNotifications = onSnapshot(q, (snapshot) => {
-      const fetchedNotifications = snapshot.docs
-        .map((doc) => doc.data())
-        .filter(
-          (notification) =>
-            (notification.batch === "All" || notification.batch === userBatch) &&
-            (notification.branch === "All" || notification.branch === userBranch)
-        );
+    const unsubscribeNotifications = onSnapshot(
+      q,
+      (snapshot) => {
+        console.log("Notifications snapshot received:", snapshot.docs.length, "documents.");
+        const fetchedNotifications = snapshot.docs
+          .map((doc) => doc.data())
+          .filter(
+            (notification) =>
+              (notification.batch === "All" || notification.batch === userBatch) &&
+              (notification.branch === "All" || notification.branch === userBranch)
+          );
 
-      setNotifications(fetchedNotifications);
-      setLoading(false);
-    });
+        console.log("Filtered Notifications:", fetchedNotifications.length);
+        setNotifications(fetchedNotifications);
+        setLoading(false);
+      },
+      (error) => {
+        console.error("Error fetching notifications:", error);
+        setLoading(false);
+      }
+    );
 
     return () => unsubscribeNotifications();
   }, [userBatch, userBranch]);
@@ -59,8 +82,8 @@ export default function NotificationReceiver() {
     (notification) =>
       (batch === "All" || notification.batch === batch) &&
       (branch === "All" || notification.branch === branch) &&
-      (notification.title.toLowerCase().includes(search.toLowerCase()) ||
-        notification.message.toLowerCase().includes(search.toLowerCase()))
+      (notification.title?.toLowerCase().includes(search.toLowerCase()) ||
+        notification.message?.toLowerCase().includes(search.toLowerCase()))
   );
 
   return (
@@ -81,7 +104,7 @@ export default function NotificationReceiver() {
             className="w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="All">All Batches</option>
-            <option value={userBatch}>{userBatch}</option>
+            {userBatch && <option value={userBatch}>{userBatch}</option>}
           </select>
           <select
             value={branch}
@@ -89,7 +112,7 @@ export default function NotificationReceiver() {
             className="w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="All">All Branches</option>
-            <option value={userBranch}>{userBranch}</option>
+            {userBranch && <option value={userBranch}>{userBranch}</option>}
           </select>
         </div>
 
