@@ -1,6 +1,9 @@
 
 # StudentSphere - The Ultimate Student Portal
 
+## Problem statement
+Universities use fragmented communication channels, making it difficult for students to access important updates, timetables, and announcements. A centralized student portal can solve this issue.
+
 ## Overview
 StudentSphere is a student portal designed to streamline academic, extracurricular, and administrative activities within a university, featuring a user-friendly interface, AI-powered features, and seamless integrations.
 
