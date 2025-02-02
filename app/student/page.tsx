@@ -2,11 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, collection, query, orderBy, limit, onSnapshot } from "firebase/firestore";
 import { app } from '@/lib/firebase';
 
 const Page: React.FC = () => {
   const [user, setUser] = useState<any>(null);
+  const [latestEvents, setLatestEvents] = useState<any[]>([]);
+  const [latestNotification, setLatestNotification] = useState<any>(null);
   const auth = getAuth(app);
   const db = getFirestore(app);
 
@@ -27,9 +29,30 @@ const Page: React.FC = () => {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    const eventsRef = collection(db, "events");
+    const q = query(eventsRef, orderBy("date", "desc"), limit(2));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const events = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setLatestEvents(events);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const notificationsRef = collection(db, "notifications");
+    const q = query(notificationsRef, orderBy("timestamp", "desc"), limit(1));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      if (!snapshot.empty) {
+        setLatestNotification(snapshot.docs[0].data());
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#111184] text-white">
-      <div className="w-full max-w-md p-6 bg-[#7373ff] rounded-2xl shadow-lg text-center">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#111184] text-white p-6">
+      <div className="w-full max-w-md p-6 bg-[#7373ff] rounded-2xl shadow-lg text-center mb-6">
         <h1 className="text-2xl font-bold mb-4">User Details</h1>
         {user ? (
           <div className="space-y-3">
@@ -42,6 +65,36 @@ const Page: React.FC = () => {
           </div>
         ) : (
           <p>Loading user data...</p>
+        )}
+      </div>
+
+      <div className="w-full max-w-md p-6 bg-[#7373ff] rounded-2xl shadow-lg text-center mb-6">
+        <h2 className="text-xl font-bold mb-4">Latest Events</h2>
+        {latestEvents.length > 0 ? (
+          <ul className="space-y-3">
+            {latestEvents.map(event => (
+              <li key={event.id} className="bg-white text-black p-3 rounded-md shadow-md">
+                <h3 className="font-semibold">{event.eventTitle}</h3>
+                <p>{event.eventDescription}</p>
+                <p className="text-sm text-gray-500">{event.date}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No recent events.</p>
+        )}
+      </div>
+
+      <div className="w-full max-w-md p-6 bg-[#7373ff] rounded-2xl shadow-lg text-center">
+        <h2 className="text-xl font-bold mb-4">Latest Notification</h2>
+        {latestNotification ? (
+          <div className="bg-white text-black p-3 rounded-md shadow-md">
+            <h3 className="font-semibold">{latestNotification.title}</h3>
+            <p>{latestNotification.message}</p>
+            <p className="text-sm text-gray-500">{latestNotification.timestamp?.toDate().toLocaleString()}</p>
+          </div>
+        ) : (
+          <p>No recent notifications.</p>
         )}
       </div>
     </div>
