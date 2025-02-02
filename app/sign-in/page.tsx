@@ -14,7 +14,7 @@ export default function SignIn() {
     e.preventDefault();
     try {
       await firebaseAuth.signInWithEmailAndPassword(auth, email, password);
-      router.push("/Dashboard");
+      router.push("/student");
     } catch (err) {
       setError("Invalid credentials.");
     }
