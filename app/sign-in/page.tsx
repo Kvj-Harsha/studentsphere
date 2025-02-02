@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { auth, firebaseAuth, googleProvider } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
-import Navbar from "../components/Navbar/page";
+// import Navbar from "../components/Navbar/page";
 
 export default function SignIn() {
   const router = useRouter();
@@ -31,7 +31,7 @@ export default function SignIn() {
 
   return (
     <section className="bg-[#3d52a0] min-h-screen flex flex-col">
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="flex flex-grow items-center justify-center px-6 py-12">
         <div className="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
           <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">Sign In</h2>
