@@ -66,7 +66,7 @@ const Page: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-black text-white p-6">
+    <div className="h-[84vh] flex justify-center items-center bg-black text-white p-6">
       <div className="flex flex-col items-center">
         {/* User Name in Blue at Top Left */}
         <motion.div 
