@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { db, firebaseDB } from '../../lib/firebase';
 import { RadioGroup, RadioGroupItem } from "./../components/ui/radio-group";
 import { useId } from "react";
+import Navbar from '../components/Navbar';
 
 const FeedbackPage = () => {
     const [feedbackType, setFeedbackType] = useState('');
@@ -39,6 +40,8 @@ const FeedbackPage = () => {
     };
 
     return (
+        <section>
+            <Navbar/>
         <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
             <div className="bg-gray-800 p-6 rounded-xl shadow-lg w-full max-w-lg">
                 <h2 className="text-2xl font-bold text-center mb-4">College Feedback</h2>
@@ -106,7 +109,7 @@ const FeedbackPage = () => {
                         className="flex gap-0 -space-x-px rounded-lg shadow-sm shadow-black/5"
                         onValueChange={setRating}
                         value={rating}
-                    >
+                        >
                         {["0", "1", "2", "3", "4", "5"].map((value) => (
                             <label
                                 key={value}
@@ -116,7 +119,7 @@ const FeedbackPage = () => {
                                     id={`${id}-${value}`}
                                     value={value}
                                     className="sr-only after:absolute after:inset-0"
-                                />
+                                    />
                                 {value}
                             </label>
                         ))}
@@ -145,6 +148,7 @@ const FeedbackPage = () => {
                 </div>
             </div>
         </div>
+                        </section>
     );
 };
 
