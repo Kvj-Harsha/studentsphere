@@ -21,7 +21,7 @@ const StudentLayout: React.FC<LayoutProps> = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!user) {
-        router.push("/login");
+        router.push("/sign-in");
         return;
       }
 
