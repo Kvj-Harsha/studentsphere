@@ -1,7 +1,7 @@
 
 # StudentSphere - The Ultimate Student Portal
 
-## Problem statement
+## Problem statement 6
 Universities use fragmented communication channels, making it difficult for students to access important updates, timetables, and announcements. A centralized student portal can solve this issue.
 
 ## Overview
