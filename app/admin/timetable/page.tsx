@@ -74,32 +74,32 @@ export default function TimetableAdmin() {
       return updatedDetails;
     });
   };
-
+  
   return (
-    <div className="min-h-screen p-6 bg-gray-100">
-      <h2 className="text-2xl font-bold mb-4">Admin Timetable</h2>
+    <div className="min-h-screen p-6 bg-black">
+      <h2 className="text-2xl font-bold mb-4 text-white ">Admin Timetable</h2>
       <div className="flex flex-col md:flex-row gap-4 mb-4">
-        <select value={batch} onChange={(e) => setBatch(e.target.value)} className="p-2 border rounded">
+        <select value={batch} onChange={(e) => setBatch(e.target.value)} className="p-2 border rounded text-[#7373ff]">
           {["20", "21", "22", "23", "24"].map((b) => (
-            <option key={b} value={b}>{b}</option>
+            <option key={b} value={b} className="text-[#7373ff]">{b}</option>
           ))}
         </select>
-        <select value={branch} onChange={(e) => setBranch(e.target.value)} className="p-2 border rounded">
+        <select value={branch} onChange={(e) => setBranch(e.target.value)} className="p-2 border rounded text-[#7373ff]">
           {["Computer Science", "AI & DS", "Mathematics & Computing"].map((b) => (
-            <option key={b} value={b}>{b}</option>
+            <option key={b} value={b} className="text-[#7373ff]">{b}</option>
           ))}
         </select>
       </div>
       {loading ? (
-        <p>Loading...</p>
+        <p className="text-[#7373ff]">Loading...</p>
       ) : Object.keys(timetable).length === 0 ? (
-        <button onClick={createTimetable} className="bg-blue-500 text-white p-2 rounded">Create Timetable</button>
+        <button onClick={createTimetable} className="bg-[#111184] text-white p-2 rounded">Create Timetable</button>
       ) : (
         <div className="bg-white p-4 shadow-md rounded-lg overflow-x-auto">
           {/* First Table - Timetable */}
           <table className="w-full border-collapse border border-gray-300 mb-6">
             <thead>
-              <tr className="bg-gray-200">
+              <tr className="bg-[#111184] text-white">
                 <th className="border p-2">Day</th>
                 {["09:00 - 09:55", "10:00 - 10:55", "11:00 - 11:55", "12:00 - 12:55", "1:00 - 2:30 (Lunch)", "2:30 - 3:55", "4:00 - 5:25"].map((slot, index) => (
                   <th key={index} className="border p-2">{slot}</th>
@@ -135,7 +135,7 @@ export default function TimetableAdmin() {
           {/* Second Table - Course Details (No Days) */}
           <table className="w-full border-collapse border border-gray-300">
             <thead>
-              <tr className="bg-gray-200">
+              <tr className="bg-[#111184] text-white">
                 <th className="border p-2">Course Code</th>
                 <th className="border p-2">Course Title</th>
                 <th className="border p-2">Instructor</th>
@@ -179,7 +179,7 @@ export default function TimetableAdmin() {
             </tbody>
           </table>
 
-          <button onClick={() => setIsEditing(!isEditing)} className="mt-4 bg-yellow-500 text-white p-2 rounded">
+          <button onClick={() => setIsEditing(!isEditing)} className="mt-4 bg-[#111184] text-white p-2 rounded">
             {isEditing ? "Save" : "Edit"}
           </button>
         </div>
