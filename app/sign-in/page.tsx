@@ -104,6 +104,9 @@ const Signin = () => {
             >
             Sign In
           </button>
+          <div className='text-[#7373ff]'>
+            Dont have an account? <a href='/sign-up' className='text-white'>Register</a>
+          </div>
         </form>
       </div>
     </div>

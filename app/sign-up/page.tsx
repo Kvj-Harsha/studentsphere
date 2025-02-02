@@ -254,11 +254,21 @@ export default function SignUp() {
                 </button>
               </div>
 
-              <div>
-                Note: <br/>
-                1. Only iiitr domain mail will be registered!<br/>
-                2. Registration may take upto 1 min, please wait. <br/>
-              </div>
+              <div className="flex flex-col justify-between">
+  <div>
+    <p>Note:</p>
+    <ul className="list-disc pl-5">
+      <li>Only iiitr domain mail will be registered!</li>
+      <li>Registration may take up to 1 min, please wait.</li>
+    </ul>
+  </div>
+
+  <div className="mt-4 text-[#7373ff]">
+    Already have an account? 
+    <a href="/sign-in" className="text-white"> Login</a>
+  </div>
+</div>
+
 
             </form>
           </div>
